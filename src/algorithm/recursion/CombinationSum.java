@@ -78,7 +78,7 @@ public class CombinationSum {
             //将数加入
             stack.push(candidates[i]);
             //递归进行后续的判断
-            findCombinationSum(remain - candidates[i], i , stack);
+            findCombinationSum(remain - candidates[i], i, stack);
             //判断完成后，需要回退，即将前一次加入的数取出来
             stack.pop();
         }
@@ -101,10 +101,10 @@ public class CombinationSum {
             return;
         }
         //remain - candidates[i] >= 0 意思是如果剩余的数小于0了，就没必要判断了
-        for (int i = start; i < len && remain - candidates[i] >= 0; i++) {
+        for (int i = start; i < len; i++) {
             stack.push(candidates[i]);
             //递归进行后续的判断
-            findCombinationSum(remain - candidates[i], i , stack);
+            findCombinationSum(remain - candidates[i], i, stack);
             //判断完成后，需要回退，即将前一次加入的数取出来
             stack.pop();
         }
