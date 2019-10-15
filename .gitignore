@@ -1,0 +1,31 @@
+## idea ##
+.idea/
+*.ipr
+*.iml
+*.iws
+
+## eclipse ##
+.settings/
+.classpath
+.project
+
+## temp ##
+logs/
+*.class
+*.log
+*.tmp
+*.cache
+*.diff
+*.patch
+
+## maven ##
+target/
+
+## system ##
+.DS_Store
+Thumbs.db
+
+## vscode ##
+.vscode/
+
+
