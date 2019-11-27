@@ -1,24 +1,46 @@
 package tools;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+
 /**
  * @Author: M˚Haonan
  * @Date: 2019-10-09 11:07
  * @Description:
  */
 
-class Son implements Cloneable{
+interface Person {
+    void startUp();
+}
 
-    private Son son;
+class Father implements Person{
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        Son res = (Son) super.clone();
-        if (son != null) {
-            res.son = (Son) son.clone();
-        }
-        return res;
+    public void startUp() {
+        System.out.println("startUp执行了");
     }
 }
+class Son extends Father{
+
+}
+
 public class Test {
 
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException {
+        Class<?>[] classes = new Class[3];
+        classes[0] = Person.class;
+        classes[1] = Father.class;
+        classes[2] = Son.class;
+        List<Person> list = new ArrayList<>();
+        for (Class<?> aClass : classes) {
+            if (!aClass.isInterface()) {
+                list.add((Person) aClass.newInstance());
+            }
+        }
+        for (Person person : list) {
+            person.startUp();
+        }
+    }
 }
