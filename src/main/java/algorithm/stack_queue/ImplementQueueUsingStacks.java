@@ -1,4 +1,4 @@
-package main.java.algorithm.stack_queue;
+package algorithm.stack_queue;
 import java.util.Stack;
 
 /**

@@ -1,4 +1,4 @@
-package main.java.algorithm.test;
+package algorithm.test;
 
 class ListNode {
     int val;

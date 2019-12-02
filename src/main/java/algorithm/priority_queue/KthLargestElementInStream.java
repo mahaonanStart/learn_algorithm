@@ -1,4 +1,4 @@
-package main.java.algorithm.priority_queue;
+package algorithm.priority_queue;
 
 import java.util.Arrays;
 

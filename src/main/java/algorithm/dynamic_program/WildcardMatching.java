@@ -1,4 +1,4 @@
-package main.java.algorithm.dynamic_program;
+package algorithm.dynamic_program;
 
 import java.util.ArrayList;
 import java.util.List;

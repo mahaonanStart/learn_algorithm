@@ -1,4 +1,4 @@
-package main.java.design_pattern.command.simple;
+package design_pattern.command.simple;
 
 /**
  * @Author: M˚Haonan

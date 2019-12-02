@@ -1,4 +1,4 @@
-package main.java.design_pattern.adapter.simple;
+package design_pattern.adapter.simple;
 
 /**
  * @Author: M˚Haonan

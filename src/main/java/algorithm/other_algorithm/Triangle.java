@@ -1,4 +1,4 @@
-package main.java.algorithm.other_algorithm;
+package algorithm.other_algorithm;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package main.java.java8;
+package java8;
 
 import java.util.HashSet;
 import java.util.Set;

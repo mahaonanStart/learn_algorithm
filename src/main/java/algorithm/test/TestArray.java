@@ -1,6 +1,6 @@
-package main.java.algorithm.test;
+package algorithm.test;
 
-import main.java.algorithm.util.MyArray;
+import algorithm.util.MyArray;
 
 public class TestArray {
     public static void main(String[] args) {

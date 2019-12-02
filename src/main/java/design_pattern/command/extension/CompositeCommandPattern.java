@@ -1,4 +1,4 @@
-package main.java.design_pattern.command.extension;
+package design_pattern.command.extension;
 
 import java.util.ArrayList;
 import java.util.List;

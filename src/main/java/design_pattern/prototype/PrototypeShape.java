@@ -1,4 +1,4 @@
-package main.java.design_pattern.prototype;
+package design_pattern.prototype;
 import java.util.*;
 
 interface Shape extends Cloneable

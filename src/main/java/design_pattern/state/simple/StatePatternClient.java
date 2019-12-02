@@ -1,4 +1,4 @@
-package main.java.design_pattern.state.simple;
+package design_pattern.state.simple;
 
 /**
  * @Author: M˚Haonan

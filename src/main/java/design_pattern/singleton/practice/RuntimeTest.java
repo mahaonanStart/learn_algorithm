@@ -1,4 +1,4 @@
-package main.java.design_pattern.singleton.practice;
+package design_pattern.singleton.practice;
 
 /**
  * @Author: M˚Haonan

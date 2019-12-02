@@ -1,4 +1,4 @@
-package main.java.algorithm.test;
+package algorithm.test;
 
 public class Test2 {
     /**

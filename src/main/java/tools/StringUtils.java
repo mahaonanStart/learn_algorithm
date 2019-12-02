@@ -1,4 +1,4 @@
-package main.java.tools;
+package tools;
 
 /**
  * @Author: M˚Haonan

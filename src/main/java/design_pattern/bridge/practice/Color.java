@@ -1,4 +1,4 @@
-package main.java.design_pattern.bridge.practice;
+package design_pattern.bridge.practice;
 
 /**
  * @Author: M˚Haonan

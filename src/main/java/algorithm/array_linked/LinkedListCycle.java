@@ -1,4 +1,4 @@
-package main.java.algorithm.array_linked;
+package algorithm.array_linked;
 import algorithm.array_linked.ListNode;
 
 import java.util.HashSet;

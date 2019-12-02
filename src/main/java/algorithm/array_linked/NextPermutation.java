@@ -1,4 +1,4 @@
-package main.java.algorithm.array_linked;
+package algorithm.array_linked;
 
 import java.util.*;
 

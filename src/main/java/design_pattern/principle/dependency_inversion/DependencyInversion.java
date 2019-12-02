@@ -1,4 +1,4 @@
-package main.java.design_pattern.principle.dependency_inversion;
+package design_pattern.principle.dependency_inversion;
 
 /**
  * @Author: M˚Haonan

@@ -1,4 +1,4 @@
-package main.java.java8;
+package java8;
 
 import java.util.Comparator;
 import java.util.function.BinaryOperator;

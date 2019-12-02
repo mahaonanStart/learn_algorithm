@@ -1,4 +1,4 @@
-package main.java.design_pattern.chain_of_responsibility.simple;
+package design_pattern.chain_of_responsibility.simple;
 
 /**
  * @Author: M˚Haonan

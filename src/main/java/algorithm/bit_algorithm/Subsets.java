@@ -1,4 +1,4 @@
-package main.java.algorithm.bit_algorithm;
+package algorithm.bit_algorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;

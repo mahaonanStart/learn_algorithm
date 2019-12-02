@@ -1,4 +1,4 @@
-package main.java.design_pattern.flyweight.practice;
+package design_pattern.flyweight.practice;
 
 /**
  * @Author: M˚Haonan

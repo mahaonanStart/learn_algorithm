@@ -1,7 +1,7 @@
-package main.java.algorithm.test;
+package algorithm.test;
 
-import main.java.algorithm.util.BinaryTree;
-import main.java.algorithm.util.TreeNode;
+import algorithm.util.BinaryTree;
+import algorithm.util.TreeNode;
 
 /**
  * @Author: M˚Haonan

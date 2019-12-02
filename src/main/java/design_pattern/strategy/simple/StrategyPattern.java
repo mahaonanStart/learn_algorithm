@@ -1,4 +1,4 @@
-package main.java.design_pattern.strategy.simple;
+package design_pattern.strategy.simple;
 
 /**
  * @Author: M˚Haonan

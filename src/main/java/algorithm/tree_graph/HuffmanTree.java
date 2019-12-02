@@ -1,4 +1,4 @@
-package main.java.algorithm.tree_graph;
+package algorithm.tree_graph;
 
 import java.util.ArrayList;
 import java.util.Collections;

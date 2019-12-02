@@ -1,4 +1,4 @@
-package main.java.algorithm.hash_collection;
+package algorithm.hash_collection;
 
 import java.util.HashMap;
 import java.util.Map;

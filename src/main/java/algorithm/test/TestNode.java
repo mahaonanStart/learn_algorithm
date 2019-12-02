@@ -1,6 +1,6 @@
-package main.java.algorithm.test;
+package algorithm.test;
 
-import main.java.algorithm.util.Node;
+import algorithm.util.Node;
 
 /**
  * @Author: M˚Haonan

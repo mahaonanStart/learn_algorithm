@@ -1,4 +1,4 @@
-package main.java.design_pattern.adapter.practice;
+package design_pattern.adapter.practice;
 
 /**
  * @Author: M˚Haonan

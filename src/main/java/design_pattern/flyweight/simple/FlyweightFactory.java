@@ -1,4 +1,4 @@
-package main.java.design_pattern.flyweight.simple;
+package design_pattern.flyweight.simple;
 
 import java.util.HashMap;
 import java.util.Map;

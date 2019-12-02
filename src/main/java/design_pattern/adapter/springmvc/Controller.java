@@ -1,4 +1,4 @@
-package main.java.design_pattern.adapter.springmvc;
+package design_pattern.adapter.springmvc;
 
 /**
  * @Author: M˚Haonan

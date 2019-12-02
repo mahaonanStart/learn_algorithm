@@ -1,7 +1,7 @@
-package main.java.algorithm.test;
+package algorithm.test;
 
-import main.java.algorithm.util.Graph;
-import main.java.algorithm.util.Vertex;
+import algorithm.util.Graph;
+import algorithm.util.Vertex;
 
 import java.util.Arrays;
 

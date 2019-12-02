@@ -1,4 +1,4 @@
-package main.java.design_pattern.principle.segregate;
+package design_pattern.principle.segregate;
 
 /**
  * @Author: M˚Haonan

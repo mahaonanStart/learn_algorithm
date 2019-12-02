@@ -1,4 +1,4 @@
-package main.java.design_pattern.builder.simple;
+package design_pattern.builder.simple;
 
 /**
  * @Author: M˚Haonan

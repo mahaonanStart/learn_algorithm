@@ -1,4 +1,4 @@
-package main.java.design_pattern.poxy.simple;
+package design_pattern.poxy.simple;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

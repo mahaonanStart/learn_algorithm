@@ -1,4 +1,4 @@
-package main.java.design_pattern.facade.simple;
+package design_pattern.facade.simple;
 
 /**
  * @Author: M˚Haonan

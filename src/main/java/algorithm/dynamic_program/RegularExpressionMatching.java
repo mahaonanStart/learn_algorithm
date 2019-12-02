@@ -1,4 +1,4 @@
-package main.java.algorithm.dynamic_program;
+package algorithm.dynamic_program;
 
 /**
  * @Author: M˚Haonan

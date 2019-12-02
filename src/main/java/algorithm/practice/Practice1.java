@@ -1,4 +1,4 @@
-package main.java.algorithm.practice;
+package algorithm.practice;
 
 import java.util.PriorityQueue;
 

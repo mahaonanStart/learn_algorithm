@@ -1,4 +1,4 @@
-package main.java.algorithm.util;
+package algorithm.util;
 
 /**
  * @Author: M˚Haonan

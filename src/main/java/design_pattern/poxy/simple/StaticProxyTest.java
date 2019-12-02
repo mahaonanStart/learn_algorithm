@@ -1,4 +1,4 @@
-package main.java.design_pattern.poxy.simple;
+package design_pattern.poxy.simple;
 
 /**
  * @Author: M˚Haonan

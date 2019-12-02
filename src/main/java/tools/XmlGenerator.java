@@ -1,4 +1,4 @@
-package main.java.tools;
+package tools;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;

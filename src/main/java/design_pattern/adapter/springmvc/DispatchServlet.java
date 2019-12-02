@@ -1,4 +1,4 @@
-package main.java.design_pattern.adapter.springmvc;
+package design_pattern.adapter.springmvc;
 
 import java.util.ArrayList;
 import java.util.List;

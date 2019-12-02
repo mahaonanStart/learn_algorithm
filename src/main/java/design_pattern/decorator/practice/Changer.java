@@ -1,4 +1,4 @@
-package main.java.design_pattern.decorator.practice;
+package design_pattern.decorator.practice;
 
 /**
  * @Author: M˚Haonan

@@ -1,4 +1,4 @@
-package main.java.design_pattern.decorator.simple;
+package design_pattern.decorator.simple;
 
 /**
  * @Author: M˚Haonan

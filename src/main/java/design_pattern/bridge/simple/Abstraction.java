@@ -1,4 +1,4 @@
-package main.java.design_pattern.bridge.simple;
+package design_pattern.bridge.simple;
 
 /**
  * @Author: M˚Haonan

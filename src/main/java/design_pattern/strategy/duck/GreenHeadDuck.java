@@ -1,4 +1,4 @@
-package main.java.design_pattern.strategy.duck;
+package design_pattern.strategy.duck;
 
 /**
  * @Author: M˚Haonan

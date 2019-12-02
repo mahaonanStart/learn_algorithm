@@ -1,4 +1,4 @@
-package main.java.algorithm.recursion;
+package algorithm.recursion;
 
 /**
  * @Author: M˚Haonan

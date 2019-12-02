@@ -1,4 +1,4 @@
-package main.java.design_pattern.singleton.simple;
+package design_pattern.singleton.simple;
 
 /**
  * @Author: M˚Haonan
