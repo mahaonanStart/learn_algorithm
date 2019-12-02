@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+-->
+<sqlMap namespace="ShopOrderItem">
+  <typeAlias alias="shopOrderItem" type=""/>
+  <typeAlias alias="shopOrderItemCriteria" type=""/>
+  <resultMap id="shopOrderItemResult" class="shopOrderItem">
+    <result column="id" property="id" jdbcType="INT"/>
+    <result column="user_id" property="userId" jdbcType="INT"/>
+    <result column="order_id" property="orderId" jdbcType="INT"/>
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR"/>
+    <result column="seller_id" property="sellerId" jdbcType="INT"/>
+    <result column="pid" property="pid" jdbcType="VARCHAR"/>
+    <result column="product_id" property="productId" jdbcType="TINYINT"/>
+    <result column="product_type" property="productType" jdbcType="TINYINT"/>
+    <result column="sale_type" property="saleType" jdbcType="TINYINT"/>
+    <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+    <result column="product_img" property="productImg" jdbcType="VARCHAR"/>
+    <result column="sku_id" property="skuId" jdbcType="INT"/>
+    <result column="sku_name" property="skuName" jdbcType="VARCHAR"/>
+    <result column="suit_id" property="suitId" jdbcType="INT"/>
+    <result column="suit_name" property="suitName" jdbcType="VARCHAR"/>
+    <result column="out_id" property="outId" jdbcType="VARCHAR"/>
+    <result column="design_key" property="designKey" jdbcType="VARCHAR"/>
+    <result column="buy_num" property="buyNum" jdbcType="INT"/>
+    <result column="shop_price" property="shopPrice" jdbcType="INT"/>
+    <result column="cost_price" property="costPrice" jdbcType="INT"/>
+    <result column="buy_price" property="buyPrice" jdbcType="INT"/>
+    <result column="settle_price" property="settlePrice" jdbcType="INT"/>
+    <result column="shipping_type" property="shippingType" jdbcType="TINYINT"/>
+    <result column="order_pick_offline_id" property="orderPickOfflineId" jdbcType="INT"/>
+    <result column="comment_status" property="commentStatus" jdbcType="TINYINT"/>
+    <result column="afs_status" property="afsStatus" jdbcType="TINYINT"/>
+    <result column="afs_id" property="afsId" jdbcType="INT"/>
+    <result column="enable" property="enable" jdbcType="TINYINT"/>
+    <result column="create_time" property="createTime" jdbcType="DATETIME"/>
+  </resultMap>
+  <sql id="criteriaWhereClause">
+    <dynamic prepend="where">
+      <isNotNull prepend="and" property="id" removeFirstPrepend="true">id = #id#</isNotNull>
+      <isNotNull prepend="and" property="userId" removeFirstPrepend="true">user_id = #userId#</isNotNull>
+      <isNotNull prepend="and" property="orderId" removeFirstPrepend="true">order_id = #orderId#</isNotNull>
+      <isNotNull prepend="and" property="orderSn" removeFirstPrepend="true">order_sn = #orderSn#</isNotNull>
+      <isNotNull prepend="and" property="sellerId" removeFirstPrepend="true">seller_id = #sellerId#</isNotNull>
+      <isNotNull prepend="and" property="pid" removeFirstPrepend="true">pid = #pid#</isNotNull>
+      <isNotNull prepend="and" property="productId" removeFirstPrepend="true">product_id = #productId#</isNotNull>
+      <isNotNull prepend="and" property="productType" removeFirstPrepend="true">product_type = #productType#</isNotNull>
+      <isNotNull prepend="and" property="saleType" removeFirstPrepend="true">sale_type = #saleType#</isNotNull>
+      <isNotNull prepend="and" property="productName" removeFirstPrepend="true">product_name = #productName#</isNotNull>
+      <isNotNull prepend="and" property="productImg" removeFirstPrepend="true">product_img = #productImg#</isNotNull>
+      <isNotNull prepend="and" property="skuId" removeFirstPrepend="true">sku_id = #skuId#</isNotNull>
+      <isNotNull prepend="and" property="skuName" removeFirstPrepend="true">sku_name = #skuName#</isNotNull>
+      <isNotNull prepend="and" property="suitId" removeFirstPrepend="true">suit_id = #suitId#</isNotNull>
+      <isNotNull prepend="and" property="suitName" removeFirstPrepend="true">suit_name = #suitName#</isNotNull>
+      <isNotNull prepend="and" property="outId" removeFirstPrepend="true">out_id = #outId#</isNotNull>
+      <isNotNull prepend="and" property="designKey" removeFirstPrepend="true">design_key = #designKey#</isNotNull>
+      <isNotNull prepend="and" property="buyNum" removeFirstPrepend="true">buy_num = #buyNum#</isNotNull>
+      <isNotNull prepend="and" property="shopPrice" removeFirstPrepend="true">shop_price = #shopPrice#</isNotNull>
+      <isNotNull prepend="and" property="costPrice" removeFirstPrepend="true">cost_price = #costPrice#</isNotNull>
+      <isNotNull prepend="and" property="buyPrice" removeFirstPrepend="true">buy_price = #buyPrice#</isNotNull>
+      <isNotNull prepend="and" property="settlePrice" removeFirstPrepend="true">settle_price = #settlePrice#</isNotNull>
+      <isNotNull prepend="and" property="shippingType" removeFirstPrepend="true">shipping_type = #shippingType#</isNotNull>
+      <isNotNull prepend="and" property="orderPickOfflineId" removeFirstPrepend="true">order_pick_offline_id = #orderPickOfflineId#</isNotNull>
+      <isNotNull prepend="and" property="commentStatus" removeFirstPrepend="true">comment_status = #commentStatus#</isNotNull>
+      <isNotNull prepend="and" property="afsStatus" removeFirstPrepend="true">afs_status = #afsStatus#</isNotNull>
+      <isNotNull prepend="and" property="afsId" removeFirstPrepend="true">afs_id = #afsId#</isNotNull>
+      <isNotNull prepend="and" property="enable" removeFirstPrepend="true">enable = #enable#</isNotNull>
+      <isNotNull prepend="and" property="createTime" removeFirstPrepend="true">create_time = #createTime#</isNotNull>
+    </dynamic>
+  </sql>
+  <sql id="selectSQL"><![CDATA[select 
+id,
+user_id,
+order_id,
+order_sn,
+seller_id,
+pid,
+product_id,
+product_type,
+sale_type,
+product_name,
+product_img,
+sku_id,
+sku_name,
+suit_id,
+suit_name,
+out_id,
+design_key,
+buy_num,
+shop_price,
+cost_price,
+buy_price,
+settle_price,
+shipping_type,
+order_pick_offline_id,
+comment_status,
+afs_status,
+afs_id,
+enable,
+create_time from shop_order_item]]></sql>
+  <insert id="insert" parameterClass="shopOrderItem"><![CDATA[INSERT INTO shop_order_item (id,user_id,order_id,order_sn,seller_id,pid,product_id,product_type,sale_type,product_name,product_img,sku_id,sku_name,suit_id,suit_name,out_id,design_key,buy_num,shop_price,cost_price,buy_price,settle_price,shipping_type,order_pick_offline_id,comment_status,afs_status,afs_id,enable,create_time,) VALUES (#id#,#userId#,#orderId#,#orderSn#,#sellerId#,#pid#,#productId#,#productType#,#saleType#,#productName#,#productImg#,#skuId#,#skuName#,#suitId#,#suitName#,#outId#,#designKey#,#buyNum#,#shopPrice#,#costPrice#,#buyPrice#,#settlePrice#,#shippingType#,#orderPickOfflineId#,#commentStatus#,#afsStatus#,#afsId#,#enable#,#createTime#,)]]>
+    <selectKey resultClass="Long" keyProperty="id">select last_insert_id();</selectKey>
+  </insert>
+  <update id="update" parameterClass="shopOrderItem">update shop_order_item 
+    <dynamic prepend="set">
+      <isNotNull prepend="," property="id" removeFirstPrepend="true">id = #id#</isNotNull>
+      <isNotNull prepend="," property="userId" removeFirstPrepend="true">user_id = #userId#</isNotNull>
+      <isNotNull prepend="," property="orderId" removeFirstPrepend="true">order_id = #orderId#</isNotNull>
+      <isNotNull prepend="," property="orderSn" removeFirstPrepend="true">order_sn = #orderSn#</isNotNull>
+      <isNotNull prepend="," property="sellerId" removeFirstPrepend="true">seller_id = #sellerId#</isNotNull>
+      <isNotNull prepend="," property="pid" removeFirstPrepend="true">pid = #pid#</isNotNull>
+      <isNotNull prepend="," property="productId" removeFirstPrepend="true">product_id = #productId#</isNotNull>
+      <isNotNull prepend="," property="productType" removeFirstPrepend="true">product_type = #productType#</isNotNull>
+      <isNotNull prepend="," property="saleType" removeFirstPrepend="true">sale_type = #saleType#</isNotNull>
+      <isNotNull prepend="," property="productName" removeFirstPrepend="true">product_name = #productName#</isNotNull>
+      <isNotNull prepend="," property="productImg" removeFirstPrepend="true">product_img = #productImg#</isNotNull>
+      <isNotNull prepend="," property="skuId" removeFirstPrepend="true">sku_id = #skuId#</isNotNull>
+      <isNotNull prepend="," property="skuName" removeFirstPrepend="true">sku_name = #skuName#</isNotNull>
+      <isNotNull prepend="," property="suitId" removeFirstPrepend="true">suit_id = #suitId#</isNotNull>
+      <isNotNull prepend="," property="suitName" removeFirstPrepend="true">suit_name = #suitName#</isNotNull>
+      <isNotNull prepend="," property="outId" removeFirstPrepend="true">out_id = #outId#</isNotNull>
+      <isNotNull prepend="," property="designKey" removeFirstPrepend="true">design_key = #designKey#</isNotNull>
+      <isNotNull prepend="," property="buyNum" removeFirstPrepend="true">buy_num = #buyNum#</isNotNull>
+      <isNotNull prepend="," property="shopPrice" removeFirstPrepend="true">shop_price = #shopPrice#</isNotNull>
+      <isNotNull prepend="," property="costPrice" removeFirstPrepend="true">cost_price = #costPrice#</isNotNull>
+      <isNotNull prepend="," property="buyPrice" removeFirstPrepend="true">buy_price = #buyPrice#</isNotNull>
+      <isNotNull prepend="," property="settlePrice" removeFirstPrepend="true">settle_price = #settlePrice#</isNotNull>
+      <isNotNull prepend="," property="shippingType" removeFirstPrepend="true">shipping_type = #shippingType#</isNotNull>
+      <isNotNull prepend="," property="orderPickOfflineId" removeFirstPrepend="true">order_pick_offline_id = #orderPickOfflineId#</isNotNull>
+      <isNotNull prepend="," property="commentStatus" removeFirstPrepend="true">comment_status = #commentStatus#</isNotNull>
+      <isNotNull prepend="," property="afsStatus" removeFirstPrepend="true">afs_status = #afsStatus#</isNotNull>
+      <isNotNull prepend="," property="afsId" removeFirstPrepend="true">afs_id = #afsId#</isNotNull>
+      <isNotNull prepend="," property="enable" removeFirstPrepend="true">enable = #enable#</isNotNull>
+      <isNotNull prepend="," property="createTime" removeFirstPrepend="true">create_time = #createTime#</isNotNull>
+    </dynamic>
+  </update>
+</sqlMap>
