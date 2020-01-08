@@ -11,6 +11,7 @@ import org.jnativehook.mouse.NativeMouseListener;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -32,12 +33,6 @@ public class GlobalTest {
         }
         catch (NativeHookException ex) {
             System.exit(1);
-        }
-//        GlobalScreen.removeNativeMouseListener();
-        NativeMonitorInfo[] monitors = GlobalScreen.getNativeMonitors();
-        System.out.println(monitors.length);
-        for (NativeMonitorInfo monitor : monitors) {
-            System.out.println(monitor.getNumber());
         }
         GlobalScreen.addNativeKeyListener(new KeyListener());
     }
@@ -72,14 +67,16 @@ class MouseListener implements NativeMouseListener {
 
 class KeyListener implements NativeKeyListener {
 
+    public boolean is_start = false;
 
-    public  final String VK_1 = "1";
-    public  final String VK_2 = "2";
-    public  final String VK_3 = "3";
-    public  final String VK_4 = "4";
-    public  final String VK_5 = "5";
-    public  final String VK_6 = "6";
-    public  final String VK_ALT = "Alt";
+    public final String VK_1 = "1";
+    public final String VK_2 = "2";
+    public final String VK_3 = "3";
+    public final String VK_4 = "4";
+    public final String VK_5 = "5";
+    public final String VK_6 = "6";
+    public final String VK_ALT = "Alt";
+    public final String VK_F12 = "F12";
 
     private Position postion1 = new Position();
     private Robot robot = new Robot();
@@ -94,6 +91,8 @@ class KeyListener implements NativeKeyListener {
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
+        String code = NativeKeyEvent.getKeyText(e.getKeyCode());
+        System.out.println(code);
         if (VK_1.equals(NativeKeyEvent.getKeyText(e.getKeyCode()))) {
             PointerInfo pinfo = MouseInfo.getPointerInfo();
             Point p = pinfo.getLocation();
@@ -102,6 +101,19 @@ class KeyListener implements NativeKeyListener {
             Color color = robot.getPixelColor(postion1.getX(), postion1.getY());
             System.out.println(colorToHexValue(color));
         }
+        if (VK_F12.equals(code) && !is_start) {
+            is_start = true;
+            //开启自动任务
+            String newColor = colorToHexValue(robot.getPixelColor(postion1.getX(), postion1.getY()));
+            //如果坐标点1的值为原来的值，说明未接任务
+            if (newColor.equals(postion1.getColor())) {
+
+            }
+        }
+    }
+
+    private void start() {
+
     }
 
     private static String colorToHexValue(Color color) {
