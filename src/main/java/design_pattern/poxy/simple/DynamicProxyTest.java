@@ -11,15 +11,17 @@ import java.lang.reflect.Proxy;
  */
 
 interface Service {
-    void request();
+    Object request();
 }
 
 class ServiceImpl implements Service {
 
     @Override
-    public void request() {
+    public Object request() {
         System.out.println("真实业务类被调用");
+        return 1;
     }
+
 }
 
 class ServiceProxy implements InvocationHandler {
@@ -53,6 +55,9 @@ public class DynamicProxyTest {
 
     public static void main(String[] args) {
         Service service = (Service) new ServiceProxy().bind(new ServiceImpl());
-        service.request();
+        Object returnVal = service.request();
+        System.out.println(returnVal);
+        String name = service.getClass().getSimpleName();
+        System.out.println(name);
     }
 }
