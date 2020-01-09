@@ -1,6 +1,8 @@
 package simulate.brave;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author: M˚Haonan
@@ -8,12 +10,13 @@ import lombok.Data;
  * @Description: 坐标点类
  */
 @Data
-public class Point {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Position {
 
     private int x;
 
     private int y;
 
     private String color;
-
 }
