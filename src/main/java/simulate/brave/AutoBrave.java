@@ -25,7 +25,7 @@ import javax.imageio.stream.ImageOutputStream;
  * @Description: 键盘监听类
  * 主要功能是根据用户键盘输入指定键位，实现相应的功能
  */
-public class KeyListener implements NativeKeyListener {
+public class AutoBrave implements NativeKeyListener {
 
 
     private Position[] positions = new Position[10];
@@ -34,31 +34,16 @@ public class KeyListener implements NativeKeyListener {
 
     private String fileName = "配置信息(误删).txt";
 
-    public KeyListener() throws AWTException {
+    private boolean isStart = false;
+
+    private RobotRun robotRun = new RobotRun();
+
+    public AutoBrave() throws AWTException {
         init();
     }
 
     @Override
     public void nativeKeyTyped(NativeKeyEvent e) {
-//        String code = NativeKeyEvent.getKeyText(e.getKeyCode());
-//        System.out.println(code);
-//        if (SystemConstant.VK_1.equals(NativeKeyEvent.getKeyText(e.getKeyCode()))) {
-//            PointerInfo pinfo = MouseInfo.getPointerInfo();
-//            java.awt.Point p = pinfo.getLocation();
-//            postion1.setX((int) p.getX());
-//            postion1.setY((int) p.getY());
-//            Color color = robot.getPixelColor(postion1.getX(), postion1.getY());
-//            System.out.println(colorToHexValue(color));
-//        }
-//        if (VK_F12.equals(code) && !is_start) {
-//            is_start = true;
-//            //开启自动任务
-//            String newColor = colorToHexValue(robot.getPixelColor(postion1.getX(), postion1.getY()));
-//            //如果坐标点1的值为原来的值，说明未接任务
-//            if (newColor.equals(postion1.getColor())) {
-//
-//            }
-//        }
     }
 
     @Override
@@ -84,6 +69,20 @@ public class KeyListener implements NativeKeyListener {
                 GlobalScreen.unregisterNativeHook();
             } catch (Exception e) {
                 System.exit(1);
+            }
+        } else if (SystemConstant.VK_F12.equalsIgnoreCase(code)) {
+            //开启自动任务
+            if (!isStart) {
+                isStart = true;
+                robotRun.setPositions(this.positions);
+                try {
+                    robotRun.run();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                isStart = false;
+                robotRun.stop();
             }
         }
     }
@@ -184,7 +183,7 @@ public class KeyListener implements NativeKeyListener {
         catch (NativeHookException ex) {
             System.exit(1);
         }
-        GlobalScreen.addNativeKeyListener(new KeyListener());
+        GlobalScreen.addNativeKeyListener(new AutoBrave());
     }
 
 }

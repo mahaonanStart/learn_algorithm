@@ -19,4 +19,5 @@ public class SystemConstant {
     public static final String VK_0 = "0";
     public static final String VK_ALT = "Alt";
     public static final String VK_F11 = "F11";
+    public static final String VK_F12 = "F12";
 }
