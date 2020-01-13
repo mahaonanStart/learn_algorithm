@@ -1,4 +1,4 @@
-package simulate.brave;
+package simulate.autobrave.brave3;
 
 import tools.support.concurrent.NamedThreadFactory;
 
@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
@@ -66,4 +65,10 @@ public class BraveUtil {
         return false;
     }
 
+    public static int singleStrToAscii(String str) {
+        if ("tab".equalsIgnoreCase(str)) {
+            return 9;
+        }
+        return str.toCharArray()[0];
+    }
 }

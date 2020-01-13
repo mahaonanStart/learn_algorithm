@@ -1,7 +1,4 @@
-package simulate.brave;
-
-import javafx.geometry.Pos;
-import sun.awt.windows.ThemeReader;
+package simulate.autobrave.brave;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
@@ -9,12 +6,10 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
  * @Author: M˚Haonan
@@ -35,11 +30,37 @@ public class RobotRun {
 
 
     public RobotRun() throws AWTException {
+        init();
         robot.setAutoDelay(new Random().nextInt(10));
     }
 
     public void setPositions(Position[] positions) {
         this.positions = positions;
+    }
+
+    public void init() {
+        FileReader fr = null;
+        BufferedReader bf = null;
+        try {
+            fr = new FileReader(this.fileName);
+            bf = new BufferedReader(fr);
+            String str;
+            // 按行读取字符串
+            int i = 0;
+            while ((str = bf.readLine()) != null && !"".equals(str)) {
+                positions[i] = parseLine(str);
+                i ++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                bf.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public Position parseLine(String str) {
@@ -71,20 +92,26 @@ public class RobotRun {
         Future<?> completeFuture = executor.submit(() -> {
             while (true) {
                 //判断是否需要点击书信
-                if (isNotNull(positions[4])) {
-                    String currColor = BraveUtil.colorToHexValue(robot.getPixelColor(positions[4].getX(), positions[4].getY()));
-                    if (positions[4].getColor().equals(currColor)) {
-                        robot.mouseMove(positions[4].getX(), positions[4].getY());
-                        robot.delay(500);
-                        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-                    }
-                }
-                //判断是否需要对话交任务
                 if (isNotNull(positions[5])) {
                     String currColor = BraveUtil.colorToHexValue(robot.getPixelColor(positions[5].getX(), positions[5].getY()));
                     if (positions[5].getColor().equals(currColor)) {
+                        robot.keyPress(KeyEvent.VK_O);
+                        robot.keyRelease(KeyEvent.VK_O);
+                        Thread.sleep(300);
+                        robot.mouseMove(positions[5].getX(), positions[5].getY());
+                        robot.delay(100);
+                        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                    }
+                    Thread.sleep(100);
+                }
+                //判断是否需要对话交任务
+                if (isNotNull(positions[6])) {
+                    String currColor = BraveUtil.colorToHexValue(robot.getPixelColor(positions[6].getX(), positions[6].getY()));
+                    if (positions[6].getColor().equals(currColor)) {
                         robot.keyPress(KeyEvent.VK_F);
+                        robot.delay(200);
+                        robot.keyRelease(KeyEvent.VK_F);
                     }else {
                         robot.keyRelease(KeyEvent.VK_F);
                     }
@@ -112,7 +139,7 @@ public class RobotRun {
                         robot.keyRelease(KeyEvent.VK_J);
                     }
                 }
-                //第二步操作，判断是否移动鼠标到接取任务
+                //第二步，移动到橙色点击
                 if (isNotNull(positions[2])) {
                     String currColor = BraveUtil.colorToHexValue(robot.getPixelColor(positions[2].getX(), positions[2].getY()));
                     if (positions[2].getColor().equals(currColor)) {
@@ -120,13 +147,32 @@ public class RobotRun {
                         robot.delay(500);
                         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
                         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                     }
                 }
-                //第三步操作，判断是否需要接任务
+                Thread.sleep(100);
+                //第三步操作，判断是否移动鼠标到接取任务
                 if (isNotNull(positions[3])) {
                     String currColor = BraveUtil.colorToHexValue(robot.getPixelColor(positions[3].getX(), positions[3].getY()));
                     if (positions[3].getColor().equals(currColor)) {
+                        robot.mouseMove(positions[3].getX(), positions[3].getY());
+                        robot.delay(500);
+                        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                    }
+                }
+
+                Thread.sleep(100);
+                //第三步操作，判断是否需要接任务
+                if (isNotNull(positions[4])) {
+                    String currColor = BraveUtil.colorToHexValue(robot.getPixelColor(positions[4].getX(), positions[4].getY()));
+                    if (positions[4].getColor().equals(currColor)) {
                         robot.keyPress(KeyEvent.VK_F);
+                        robot.delay(200);
+                        robot.keyRelease(KeyEvent.VK_F);
                     }else {
                         robot.keyRelease(KeyEvent.VK_F);
                     }
@@ -152,6 +198,11 @@ public class RobotRun {
             }
         });
         return fightFuture;
+    }
+
+    public static void main(String[] args) throws Exception{
+        RobotRun run = new RobotRun();
+        run.run();
     }
 
 }

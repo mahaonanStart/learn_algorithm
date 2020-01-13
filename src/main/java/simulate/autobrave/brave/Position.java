@@ -1,4 +1,4 @@
-package simulate.brave;
+package simulate.autobrave.brave;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

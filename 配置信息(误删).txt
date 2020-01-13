@@ -1,8 +1,8 @@
-p0:x=-1004,y=903,color=#FFFFFF
-p1:x=0,y=0,color=0
-p2:x=0,y=0,color=0
-p3:x=0,y=0,color=0
-p4:x=0,y=0,color=0
+p0:x=941,y=916,color=#61D0F5
+p1:x=1161,y=881,color=#2B2B2B
+p2:x=1173,y=607,color=#2B2B2B
+p3:x=1111,y=519,color=#2B2B2B
+p4:x=970,y=440,color=#323232
 p5:x=0,y=0,color=0
 p6:x=0,y=0,color=0
 p7:x=0,y=0,color=0

@@ -1,23 +1,18 @@
-package simulate.brave;
+package simulate.autobrave.brave3;
 
-import javafx.geometry.Pos;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.Date;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
-
-import simulate.brave.BraveUtil;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
 
 /**
  * @Author: M˚Haonan
@@ -53,12 +48,13 @@ public class AutoBrave implements NativeKeyListener {
     }
 
     private void setPoint(String code) {
-//        System.out.println(code);
+        System.out.println(code);
         if (BraveUtil.isSingleNumber(code)) {
             PointerInfo pinfo = MouseInfo.getPointerInfo();
             Point p = pinfo.getLocation();
             String color = BraveUtil.colorToHexValue(getPostionColor((int) p.getX(), (int) p.getY()));
             positions[Integer.parseInt(code)] = new Position((int) p.getX(), (int) p.getY(), color);
+            robotRun.setPositions(this.positions);
         } else if ("]".equalsIgnoreCase(code)) {
             print();
             printCurrent();
