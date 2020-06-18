@@ -10,6 +10,8 @@ import java.net.URLEncoder;
  */
 public class Encodes {
 
+    public static final String ENCODE_UTF_8 = "UTF-8";
+
     public static String urlEncode(String part, String charset) {
         try {
             if(null == charset || null == part) {

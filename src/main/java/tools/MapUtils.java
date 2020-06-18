@@ -50,4 +50,26 @@ public class MapUtils {
         map.forEach((k, v) -> map.put(k, vFun.apply(v)));
         return map;
     }
+
+    /**
+     * 判断map为空
+     * @param map
+     * @param <T>
+     * @param <R>
+     * @return
+     */
+    public static <T, R> boolean isEmpty(Map<T, R> map) {
+        return map == null || map.size() == 0;
+    }
+
+    /**
+     * 判断map不为空
+     * @param map
+     * @param <T>
+     * @param <R>
+     * @return
+     */
+    public static <T, R> boolean isNotEmpty(Map<T, R> map) {
+        return map != null && map.size() > 0;
+    }
 }

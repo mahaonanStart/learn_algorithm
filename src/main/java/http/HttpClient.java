@@ -14,6 +14,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -21,9 +23,13 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.Encodes;
+import tools.MapUtils;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -131,6 +137,52 @@ public class HttpClient {
         }
         doRequest(httpPost);
     }
+
+
+    public String postFile(String url, String name, File file) {
+        return postFile(url, null, null, name, file);
+    }
+
+    public String postFile(String url, Map<String, String> params, Map<String, String> headers, String name, File file) {
+        Map<String, File> files = new HashMap<>();
+        files.put(name, file);
+        return postFile(url, params, headers, files, Encodes.ENCODE_UTF_8);
+    }
+
+
+    /**
+     * post上传文件
+     * @param url
+     * @param params
+     * @param headers
+     * @param files
+     * @param sendCharset
+     * @return
+     */
+    public String postFile(String url, Map<String, String> params, Map<String, String> headers,  Map<String, File> files, String sendCharset) {
+        HttpPost httpPost = new HttpPost(url);
+        HttpClientUtils.addHeaders(httpPost, commonHeaders);
+        HttpClientUtils.addHeaders(httpPost, headers);
+        if (MapUtils.isNotEmpty(files)) {
+            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
+            if (params != null) {
+                //设置参数的contentType
+                ContentType textContentType = ContentType.create("text/plain", Charset.forName(sendCharset));
+                params.forEach((k, v) -> {
+                    if (v != null) {
+                        entityBuilder.addTextBody(k, v, textContentType);
+                    }
+                });
+            }
+            files.forEach((k, v) -> {
+                entityBuilder.addBinaryBody(k, v);
+            });
+            httpPost.setEntity(entityBuilder.build());
+        }
+        doRequest(httpPost);
+        return null;
+    }
+
 
     private void doRequest(HttpRequestBase httpRequest) {
         try {
