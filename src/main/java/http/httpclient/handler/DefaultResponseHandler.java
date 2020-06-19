@@ -20,7 +20,7 @@ public class DefaultResponseHandler extends AbstractResponseHandler{
     @Override
     public void onHandler(HttpResponse response) {
         try {
-            this.responseContent = EntityUtils.toString(response.getEntity(), charset);
+            this.responseContent = EntityUtils.toString(this.entity, charset);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

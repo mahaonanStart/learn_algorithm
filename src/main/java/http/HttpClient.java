@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSON;
 import http.httpclient.handler.AbstractResponseHandler;
 import http.httpclient.handler.DefaultResponseHandler;
 import http.httpclient.handler.FileResponseHandler;
+import http.httpclient.handler.HttpResponseHandler;
 import http.utils.HttpConstant;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.*;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -105,26 +107,26 @@ public class HttpClient {
         return this;
     }
 
-    public AbstractResponseHandler get(String url) {
+    public HttpResponseHandler get(String url) {
         return get(url, null, null, null);
     }
 
-    public AbstractResponseHandler get(String url, Map<String, String> params, Map<String, String> headers, String urlEncoding) {
+    public HttpResponseHandler get(String url, Map<String, String> params, Map<String, String> headers, String urlEncoding) {
         HttpGet httpGet = new HttpGet(HttpClientUtils.appendParams(url, params, urlEncoding));
         HttpClientUtils.addHeaders(httpGet, commonHeaders);
         HttpClientUtils.addHeaders(httpGet, headers);
         return doRequest(httpGet);
     }
 
-    public AbstractResponseHandler post(String url, Map<String, String> params) {
+    public HttpResponseHandler post(String url, Map<String, String> params) {
        return post(url, params, null, null);
     }
 
-    public AbstractResponseHandler post(String url, Map<String, String> params, Map<String, String> headers) {
+    public HttpResponseHandler post(String url, Map<String, String> params, Map<String, String> headers) {
         return post(url, params, headers, null);
     }
 
-    public AbstractResponseHandler post(String url, Map<String, String> params, Map<String, String> headers, String sendCharset) {
+    public HttpResponseHandler post(String url, Map<String, String> params, Map<String, String> headers, String sendCharset) {
         HttpPost httpPost = new HttpPost(url);
         HttpClientUtils.addHeaders(httpPost, commonHeaders);
         HttpClientUtils.addHeaders(httpPost, headers);
@@ -145,11 +147,11 @@ public class HttpClient {
     }
 
 
-    public AbstractResponseHandler postFile(String url, String name, InputStream in) {
+    public HttpResponseHandler postFile(String url, String name, InputStream in) {
         return postFile(url, null, null, name, in);
     }
 
-    public AbstractResponseHandler postFile(String url, Map<String, String> params, Map<String, String> headers, String name, InputStream in) {
+    public HttpResponseHandler postFile(String url, Map<String, String> params, Map<String, String> headers, String name, InputStream in) {
         Map<String, InputStream> ins = new HashMap<>();
         ins.put(name, in);
         return postFile(url, params, headers, ins, Encodes.ENCODE_UTF_8);
@@ -165,7 +167,7 @@ public class HttpClient {
      * @param sendCharset
      * @return
      */
-    public AbstractResponseHandler postFile(String url, Map<String, String> params, Map<String, String> headers, Map<String, InputStream> files, String sendCharset) {
+    public HttpResponseHandler postFile(String url, Map<String, String> params, Map<String, String> headers, Map<String, InputStream> files, String sendCharset) {
         HttpPost httpPost = new HttpPost(url);
         HttpClientUtils.addHeaders(httpPost, commonHeaders);
         HttpClientUtils.addHeaders(httpPost, headers);
@@ -189,7 +191,7 @@ public class HttpClient {
     }
 
 
-    private AbstractResponseHandler doRequest(HttpRequestBase httpRequest) {
+    private HttpResponseHandler doRequest(HttpRequestBase httpRequest) {
         try {
             CloseableHttpResponse response = httpClient.execute(httpRequest, context);
             HttpEntity entity = response.getEntity();
@@ -227,7 +229,7 @@ public class HttpClient {
     private boolean isText(HttpResponse response) {
         Header header = response.getFirstHeader("content-type");
         String value = header.getValue();
-        if (HttpConstant.TEXT_CONTENT_TYPE.contains(value)) {
+        if (value != null && HttpConstant.TEXT_CONTENT_TYPE.contains(value.toLowerCase())) {
             return true;
         }
         return false;
