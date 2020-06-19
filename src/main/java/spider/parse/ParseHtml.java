@@ -37,6 +37,7 @@ public class ParseHtml {
         return xElements.getElements();
     }
 
+
     public String selectText(Element element, String xpathStr) {
         XElements xElements = Xsoup.select(element, xpathStr);
         return xElements.get();

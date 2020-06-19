@@ -1,10 +1,13 @@
 package http;
 
+import com.alibaba.fastjson.JSON;
+import http.httpclient.handler.AbstractResponseHandler;
+import http.httpclient.handler.DefaultResponseHandler;
+import http.httpclient.handler.FileResponseHandler;
+import http.utils.HttpConstant;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
@@ -14,6 +17,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -27,6 +31,8 @@ import tools.Encodes;
 import tools.MapUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -88,6 +94,7 @@ public class HttpClient {
                 .setSocketTimeout(socketTimeout)
                 .setConnectionRequestTimeout(connectionRequestTimeout)
                 .setConnectTimeout(connectTimeout).build();
+        this.context = HttpClientContext.create();
         this.httpClient = this.httpClientBuilder
                 .setDefaultRequestConfig(globalConfig)
                 .setDefaultCredentialsProvider(credentialsProvider)
@@ -98,27 +105,26 @@ public class HttpClient {
         return this;
     }
 
-    public void get(String url) {
-        get(url, null, null, null);
+    public AbstractResponseHandler get(String url) {
+        return get(url, null, null, null);
     }
 
-    public void get(String url, Map<String, String> params, Map<String, String> headers, String urlEncoding) {
+    public AbstractResponseHandler get(String url, Map<String, String> params, Map<String, String> headers, String urlEncoding) {
         HttpGet httpGet = new HttpGet(HttpClientUtils.appendParams(url, params, urlEncoding));
         HttpClientUtils.addHeaders(httpGet, commonHeaders);
         HttpClientUtils.addHeaders(httpGet, headers);
-
-        doRequest(httpGet);
+        return doRequest(httpGet);
     }
 
-    public void post(String url, Map<String, String> params) {
-        post(url, params, null, null);
+    public AbstractResponseHandler post(String url, Map<String, String> params) {
+       return post(url, params, null, null);
     }
 
-    public void post(String url, Map<String, String> params, Map<String, String> headers) {
-        post(url, params, headers, null);
+    public AbstractResponseHandler post(String url, Map<String, String> params, Map<String, String> headers) {
+        return post(url, params, headers, null);
     }
 
-    public void post(String url, Map<String, String> params, Map<String, String> headers, String sendCharset) {
+    public AbstractResponseHandler post(String url, Map<String, String> params, Map<String, String> headers, String sendCharset) {
         HttpPost httpPost = new HttpPost(url);
         HttpClientUtils.addHeaders(httpPost, commonHeaders);
         HttpClientUtils.addHeaders(httpPost, headers);
@@ -135,18 +141,18 @@ public class HttpClient {
                 e.printStackTrace();
             }
         }
-        doRequest(httpPost);
+        return doRequest(httpPost);
     }
 
 
-    public String postFile(String url, String name, File file) {
-        return postFile(url, null, null, name, file);
+    public AbstractResponseHandler postFile(String url, String name, InputStream in) {
+        return postFile(url, null, null, name, in);
     }
 
-    public String postFile(String url, Map<String, String> params, Map<String, String> headers, String name, File file) {
-        Map<String, File> files = new HashMap<>();
-        files.put(name, file);
-        return postFile(url, params, headers, files, Encodes.ENCODE_UTF_8);
+    public AbstractResponseHandler postFile(String url, Map<String, String> params, Map<String, String> headers, String name, InputStream in) {
+        Map<String, InputStream> ins = new HashMap<>();
+        ins.put(name, in);
+        return postFile(url, params, headers, ins, Encodes.ENCODE_UTF_8);
     }
 
 
@@ -159,7 +165,7 @@ public class HttpClient {
      * @param sendCharset
      * @return
      */
-    public String postFile(String url, Map<String, String> params, Map<String, String> headers,  Map<String, File> files, String sendCharset) {
+    public AbstractResponseHandler postFile(String url, Map<String, String> params, Map<String, String> headers, Map<String, InputStream> files, String sendCharset) {
         HttpPost httpPost = new HttpPost(url);
         HttpClientUtils.addHeaders(httpPost, commonHeaders);
         HttpClientUtils.addHeaders(httpPost, headers);
@@ -175,30 +181,56 @@ public class HttpClient {
                 });
             }
             files.forEach((k, v) -> {
-                entityBuilder.addBinaryBody(k, v);
+                entityBuilder.addBinaryBody(k, v, ContentType.MULTIPART_FORM_DATA, "");
             });
             httpPost.setEntity(entityBuilder.build());
         }
-        doRequest(httpPost);
-        return null;
+        return doRequest(httpPost);
     }
 
 
-    private void doRequest(HttpRequestBase httpRequest) {
+    private AbstractResponseHandler doRequest(HttpRequestBase httpRequest) {
         try {
             CloseableHttpResponse response = httpClient.execute(httpRequest, context);
             HttpEntity entity = response.getEntity();
-            if (entity == null) {
-                return;
-            }
+            entity = new BufferedHttpEntity(entity);
+            AbstractResponseHandler responseHandler = null;
             int statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode >= 400) {
+            if (statusCode != 200) {
                 log.info("Status code: " + statusCode);
+                return new DefaultResponseHandler(entity);
             }
-            log.info(EntityUtils.toString(entity, "utf-8"));
+            if (isText(response)) {
+                responseHandler = new DefaultResponseHandler(entity);
+            }else if (isJson(entity)) {
+
+            }else {
+                responseHandler = new FileResponseHandler(entity);
+            }
+            responseHandler.handler(response);
+            responseHandler.onHandler(response);
+            return responseHandler;
         }catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+    }
+
+    private boolean isJson(HttpEntity entity) {
+        try {
+            return JSON.isValid(EntityUtils.toString(entity, "utf-8"));
+        } catch (Exception e) {
+            log.info("解析response失败");
+        }
+        return false;
+    }
+
+    private boolean isText(HttpResponse response) {
+        Header header = response.getFirstHeader("content-type");
+        String value = header.getValue();
+        if (HttpConstant.TEXT_CONTENT_TYPE.contains(value)) {
+            return true;
+        }
+        return false;
     }
 
 

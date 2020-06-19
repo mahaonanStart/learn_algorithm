@@ -2,6 +2,7 @@ package tools;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.util.UUID;
 
 /**
  * @Author: M˚Haonan
@@ -9,6 +10,10 @@ import java.lang.reflect.Field;
  * @Description: 文件工具类
  */
 public class FileUtils {
+
+    public static String generateName() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
 
     /**
      * 保存文件到指定目录
