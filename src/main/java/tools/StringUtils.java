@@ -38,7 +38,7 @@ public class StringUtils {
      */
     public static String camelToUnderline(String str) {
         if (isBlack(str)) {
-            return "";
+            return "";   
         }
         if (str.length() == 1) return str;
         StringBuilder sb = new StringBuilder();
