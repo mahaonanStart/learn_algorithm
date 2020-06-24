@@ -54,11 +54,18 @@ public class StringUtils {
         return sb.toString();
     }
 
+    public static String trimAll(String str) {
+        if (isBlack(str)) {
+            return "";
+        }
+        return str.replaceAll("\\s*", "");
+    }
+
 
 
 
     public static void main(String[] args) {
-        String myFistLetter = camelToUnderline("myFirstLetter");
+        String myFistLetter = trimAll("my  FirstL  etter");
         System.out.println(myFistLetter);
     }
 }

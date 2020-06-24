@@ -1,10 +1,7 @@
 package http;
 
 import com.alibaba.fastjson.JSON;
-import http.httpclient.handler.AbstractResponseHandler;
-import http.httpclient.handler.DefaultResponseHandler;
-import http.httpclient.handler.FileResponseHandler;
-import http.httpclient.handler.HttpResponseHandler;
+import http.httpclient.handler.*;
 import http.utils.HttpConstant;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tools.Encodes;
 import tools.MapUtils;
+import tools.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -202,10 +200,10 @@ public class HttpClient {
                 log.info("Status code: " + statusCode);
                 return new DefaultResponseHandler(entity);
             }
-            if (isText(response)) {
+            if (isJson(entity)) {
+                responseHandler = new JsonResponseHandler(entity);
+            }else if (isText(response)) {
                 responseHandler = new DefaultResponseHandler(entity);
-            }else if (isJson(entity)) {
-
             }else {
                 responseHandler = new FileResponseHandler(entity);
             }
@@ -229,7 +227,7 @@ public class HttpClient {
     private boolean isText(HttpResponse response) {
         Header header = response.getFirstHeader("content-type");
         String value = header.getValue();
-        if (value != null && HttpConstant.TEXT_CONTENT_TYPE.contains(value.toLowerCase())) {
+        if (value != null && HttpConstant.TEXT_CONTENT_TYPE.contains(StringUtils.trimAll(value.toLowerCase()))) {
             return true;
         }
         return false;

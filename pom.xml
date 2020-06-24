@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mahaonan</groupId>
-    <artifactId>arithmetic</artifactId>
+    <artifactId>mhn-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>数据结构和算法</name>
     <description>practice project for arithmetic</description>

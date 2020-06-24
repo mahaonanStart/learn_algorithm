@@ -15,9 +15,9 @@ public class HttpConstant {
 
     static {
         TEXT_CONTENT_TYPE.add("text/html");
-        TEXT_CONTENT_TYPE.add("text/html; charset=utf-8");
+        TEXT_CONTENT_TYPE.add("text/html;charset=utf-8");
         TEXT_CONTENT_TYPE.add("text/plain");
-        TEXT_CONTENT_TYPE.add("text/plain; charset=utf-8");
+        TEXT_CONTENT_TYPE.add("text/plain;charset=utf-8");
 
         SUFFIX_MAP.put("image/tiff", ".tif");
         SUFFIX_MAP.put("application/x-001", ".001");
@@ -167,6 +167,7 @@ public class HttpConstant {
         SUFFIX_MAP.put("video/mpeg", ".mp2v");
         SUFFIX_MAP.put("audio/mp3", ".mp3");
         SUFFIX_MAP.put("video/mpeg4", ".mp4");
+        SUFFIX_MAP.put("video/mp4", ".mp4");
         SUFFIX_MAP.put("video/x-mpg", ".mpa");
         SUFFIX_MAP.put("application/vnd.ms-project", ".mpd");
         SUFFIX_MAP.put("video/x-mpeg", ".mpe");
